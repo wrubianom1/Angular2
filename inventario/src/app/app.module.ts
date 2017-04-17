@@ -7,8 +7,12 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
 import { PersonaComponent } from './persona/persona.component';
-import { Http, Response, RequestOptions, Headers } from '@angular/http';
+//import { Http, Response, RequestOptions, Headers } from '@angular/http';
+import { TabsModule } from 'ng2-bootstrap';
+import { Ng2PaginationModule } from 'ng2-pagination'; // <-- import the module
+import { Ng2TableModule } from '../components/ng-table-module';
 
+import { PaginationModule } from 'ng2-bootstrap';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -29,9 +33,14 @@ const appRoutes: Routes = [
     BrowserModule,
     FormsModule,
     HttpModule,
-    RouterModule.forRoot(appRoutes)
+    Ng2TableModule,
+    PaginationModule,
+    TabsModule,
+    RouterModule.forRoot(appRoutes),
   ],
-  providers: [Http],
-  bootstrap: [AppComponent]
+ // providers: [Http],
+  bootstrap: [AppComponent],
+
+
 })
 export class AppModule { }

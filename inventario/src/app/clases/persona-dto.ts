@@ -1,9 +1,8 @@
 export class PersonaDTO {
 
-    id: number;
-    title: string = '';
-    complete: boolean = false;
-    apellido: string = '';
+    idPersona: number;
+    celular: string = '';
+    nombrePersona: string = '';
 
     constructor(values: Object = {}) {
         Object.assign(this, values);

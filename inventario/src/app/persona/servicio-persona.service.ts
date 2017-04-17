@@ -1,18 +1,12 @@
 import { Injectable } from '@angular/core';
 import { PersonaDTO } from '../clases/persona-dto';
-
-
-// Importar objetos de la librería http
-import { Http, Response, RequestOptions, Headers } from '@angular/http';
-// Importar la clase Observable desde la librería rxjs
-import { Observable } from 'rxjs/Observable';
 import { HttpModule } from '@angular/http';
-
-
-
-const urlBase = 'http://localhost:3000'; // Your base server URL here
-
-
+import 'rxjs/add/operator/toPromise';
+import { Http, Response, RequestOptions, Headers } from '@angular/http';
+import { Observable } from 'rxjs/Rx';
+// Import RxJs required methods
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
 
 
 @Injectable()
@@ -20,21 +14,43 @@ export class ServicioPersonaService {
 
   constructor(private http: Http) {
   }
+  private commentsUrl = 'http://localhost:8080/InventarioRestApi/apis/Materia/';
+  //private commentsUrl = 'https://jsonplaceholder.typicode.com/posts/';
 
-  listaPersonas: PersonaDTO[] = [new PersonaDTO({ id: 1, title: 'Hello 1', complete: false }), new PersonaDTO({ id: 2, title: 'Hello 2', complete: false })];
+
+  listaPersonas: PersonaDTO[] = [new PersonaDTO({ idPersona: 1321654, celular: '311655', nombrePersona: 'William' }), new PersonaDTO({ idPersona: 2, celular: '222', nombrePersona: 'Eduardo' })];
 
   // Simulate GET /todos
+  //getAllPersonas(): Promise<PersonaDTO[]> {
   getAllPersonas(): PersonaDTO[] {
+    /* return this.http.get(urlBase)
+       .toPromise()
+       .then(response => response.json().data as PersonaDTO[])
+       .catch(this.handleError);*/
+
+    //return Promise.all(this.listaPersonas);
     return this.listaPersonas;
   }
 
-  leerDatos(): Observable<Response> {
-    // Se declara cómo va a ser la llamada 
-    // ocultando los pormenores a los consumidores   
-    return this.http
-      .get(`${urlBase}/recurso`);
-    // En este momento aún no se efectuó la llamada
+
+
+  getComments(): Promise<PersonaDTO[]> {
+
+    return this.http.get(this.commentsUrl)
+      .toPromise()
+      .then(response => response.json().data as PersonaDTO[])
+      .catch(this.handleError);
+    /*
+        return this.http.get(this.commentsUrl)
+          .map(res => res.json());*/
   }
+
+
+  private handleError(error: any): Promise<any> {
+    console.error('An error occurred', error); // for demo purposes only
+    return Promise.reject(error.message || error);
+  }
+
 
 }
 
