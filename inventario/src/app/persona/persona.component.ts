@@ -22,67 +22,60 @@ export class PersonaComponent implements OnInit {
   // paged items
   pagedItems: any[];
 
-  /* constructor() {
-     //personaService.getAllPersonas().then(p => this.items = p)
-   }
- 
-   ngOnInit() {
- 
-   }*/
-  //private data: Array<any> = TableData;
+
   private data: PersonaDTO[];
-  private dataProd: ProductDTO[];
+  dataProd: ProductDTO[];
   people: PersonaDTO[] = [];
+
+
 
 
   getdata: String;
 
   public constructor(private personaService: ServicioPersonaService) {
 
-    //personaService.getAllPersonas().then(p => this.items = p)
-
-    /*this.personaService.getComments()
-      .then(
-      dataProd => this.getdata = JSON.stringify(dataProd), //Bind to view
-      err => {
-        // Log errors if any
-        console.log(err);
-        // alert('Entro por que tiene error');
-      });
-*/
-
-    this.personaService.getProductos()
-      .subscribe(
-      dataProd => this.getdata = JSON.stringify(dataProd),
-      //comments => this.dataProd = comments, //Bind to view
-      err => {
-        // Log errors if any
-        console.log(err);
-      });
 
 
-    /*this.personaService.getComments()
-      .subscribe(
-      dataEnt => this.people = dataEnt,
-      err => {
+    /* this.personaService.getProductosPromesa()
+       .then(
+       //dataProd => this.getdata = JSON.stringify(dataProd),
+       comments => this.dataProd = comments, //Bind to view
+       err => {
+         // Log errors if any
+         console.log(err);
+       });
+ */
 
-        console.log(err);
-      });*/
-    /*this.personaService.getComments()
-      .subscribe(
-      comments => this.people = comments, //Bind to view
-      err => {
-        // Log errors if any
-        console.log(err);
-      });
-*/
-    // personaService.getComments().then(p => this.people = p);
-
-
-    //  alert('el tamaño es ' + this.people.length);
     this.data = personaService.getAllPersonas();
     //data = items;
     this.length = this.data.length;
+    //this.iniciar();
+  }
+
+  clicked() {
+    this.iniciar();
+    //event.preventDefault();
+  }
+
+  clicked2() {
+    alert('el tamaño es ' + this.dataProd.length);
+    //event.preventDefault();
+  }
+
+  public iniciar(): void {
+    alert('Entro para iniciar');
+    this.personaService.getProductos()
+      .subscribe(
+      //dataProd => this.getdata = JSON.stringify(dataProd),
+      comments => this.dataProd = comments, //Bind to view
+      err => {
+        // Log errors if any
+        console.log(err);
+      });
+
+    //alert('el tamaño es ' + this.dataProd.length);
+
+
   }
 
   public ngOnInit(): void {

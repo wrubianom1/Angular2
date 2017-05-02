@@ -1,11 +1,10 @@
-<p>
-  persona works! =  {{getdata}}  fin
-  <br/>
-</p>
-
 <ul>
-  <li *ngFor="let item of items">el id es : {{item.title}}</li>
+  <li *ngFor="let productd of dataProd">el id es : {{productd.productId}}</li>
 </ul>
+
+<button (click)="clicked()">Click</button>
+
+<button (click)="clicked2()">Click 2</button>
 
 <div class="row">
   <div class="col-md-4">

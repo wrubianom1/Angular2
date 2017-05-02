@@ -17,7 +17,7 @@ export class ServicioPersonaService {
   }
   private commentsUrl = 'http://localhost:8080/InventarioRestApi/apis/Materia/';
 
-  private urlProducto = 'http://localhost:8080/rest/productoId/1';
+  private urlProducto = 'http://localhost:8080/rest/productos';
 
   //private commentsUrl = 'https://jsonplaceholder.typicode.com/posts/';
 
@@ -45,6 +45,16 @@ export class ServicioPersonaService {
       .map((res: Response) => res.json())
       //...errors if any
       .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+
+  }
+
+  getProductosPromesa(): Promise<ProductDTO[]> {
+
+    // ...using get request
+    return this.http.get(this.urlProducto)
+      .toPromise()
+      .then(response => response.json().data)
+      .catch(this.handleError);
 
   }
 
