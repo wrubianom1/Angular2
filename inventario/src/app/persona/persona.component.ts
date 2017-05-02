@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { TableData } from './table-data';
 import { ServicioPersonaService } from './servicio-persona.service';
 import { PersonaDTO } from '../clases/persona-dto';
-
+import { ProductDTO } from '../clases/product-dto';
 
 
 @Component({
@@ -31,6 +31,7 @@ export class PersonaComponent implements OnInit {
    }*/
   //private data: Array<any> = TableData;
   private data: PersonaDTO[];
+  private dataProd: ProductDTO[];
   people: PersonaDTO[] = [];
 
 
@@ -40,14 +41,24 @@ export class PersonaComponent implements OnInit {
 
     //personaService.getAllPersonas().then(p => this.items = p)
 
-    /*  this.personaService.getComments()
-        .subscribe(
-        data => this.getdata = JSON.stringify(data), //Bind to view
-        err => {
-          // Log errors if any
-          console.log(err);
-          // alert('Entro por que tiene error');
-        });*/
+    /*this.personaService.getComments()
+      .then(
+      dataProd => this.getdata = JSON.stringify(dataProd), //Bind to view
+      err => {
+        // Log errors if any
+        console.log(err);
+        // alert('Entro por que tiene error');
+      });
+*/
+
+    this.personaService.getProductos()
+      .subscribe(
+      dataProd => this.getdata = JSON.stringify(dataProd),
+      //comments => this.dataProd = comments, //Bind to view
+      err => {
+        // Log errors if any
+        console.log(err);
+      });
 
 
     /*this.personaService.getComments()
@@ -65,10 +76,10 @@ export class PersonaComponent implements OnInit {
         console.log(err);
       });
 */
-    personaService.getComments().then(p => this.people = p);
+    // personaService.getComments().then(p => this.people = p);
 
 
-    alert('el tamaño es ' + this.people.length);
+    //  alert('el tamaño es ' + this.people.length);
     this.data = personaService.getAllPersonas();
     //data = items;
     this.length = this.data.length;

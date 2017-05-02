@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { PersonaDTO } from '../clases/persona-dto';
+import { ProductDTO } from '../clases/product-dto';
 import { HttpModule } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 import { Http, Response, RequestOptions, Headers } from '@angular/http';
@@ -15,6 +16,9 @@ export class ServicioPersonaService {
   constructor(private http: Http) {
   }
   private commentsUrl = 'http://localhost:8080/InventarioRestApi/apis/Materia/';
+
+  private urlProducto = 'http://localhost:8080/rest/productoId/1';
+
   //private commentsUrl = 'https://jsonplaceholder.typicode.com/posts/';
 
 
@@ -33,12 +37,23 @@ export class ServicioPersonaService {
   }
 
 
+  getProductos(): Observable<ProductDTO[]> {
 
-  getComments(): Promise<PersonaDTO[]> {
+    // ...using get request
+    return this.http.get(this.urlProducto)
+      // ...and calling .json() on the response to return data
+      .map((res: Response) => res.json())
+      //...errors if any
+      .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
 
-    return this.http.get(this.commentsUrl)
+  }
+
+
+  getComments(): Promise<ProductDTO[]> {
+
+    return this.http.get(this.urlProducto)
       .toPromise()
-      .then(response => response.json().data as PersonaDTO[])
+      .then(response => response.json().data)
       .catch(this.handleError);
     /*
         return this.http.get(this.commentsUrl)
