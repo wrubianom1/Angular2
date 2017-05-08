@@ -46,6 +46,8 @@ export class PersonaComponent implements OnInit {
        });
  */
 
+
+  // se creo este espacio para subir al git
     this.data = personaService.getAllPersonas();
     //data = items;
     this.length = this.data.length;
